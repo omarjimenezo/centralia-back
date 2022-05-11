@@ -17,7 +17,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::where('user_id', \Auth::user()->id)
+        $orders = Order::where('provider_id', \Auth::user()->id)
                         ->orderBy('id','desc')
                         ->get();
 
@@ -44,7 +44,7 @@ class OrderController extends Controller
                 $order->status  = 'Pending';
                 $order->save(); 
 
-                return response()->json(['message' => 'Success'], 205);     
+                return response()->json(['message' => 'Success'], 200);     
             } else {
                 return response()->json(['message' => 'Missing required field'], 400);
             }            
