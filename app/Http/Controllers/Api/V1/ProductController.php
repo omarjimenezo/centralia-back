@@ -17,7 +17,7 @@ class ProductController extends Controller
     public function index($provider)
     {
         $products = Product::where('user_id', $provider)
-                           ->orderBy('id','asc')
+                           ->orderBy('description','asc')
                            ->get();
 
         return ProductResource::collection($products);

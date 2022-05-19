@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\V1\CategoryController as CategoryController;
+use App\Http\Controllers\Api\V1\DependencyController as DependencyController;
 use App\Http\Controllers\Api\V1\ProductController as ProductController;
 use App\Http\Controllers\Api\V1\OrderController as OrderController;
 use App\Http\Controllers\Api\V1\UserController as UserController;
@@ -26,7 +28,30 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('login', [LoginController::class, 'login']);
 
+/* - - - - - C A T E G O R I E S - - - - -
 
+- - Public URLs - -
+GET       | api/v1/category/provider/{user_id}   method index
+GET       | api/v1/category/{user_id}            method show
+*/
+
+// (URL)/api/v1/category/provider/(user_id)
+Route::get( 'v1/category/provider/{user_id}', [CategoryController::class, 'index']);
+
+/* - - - - - D E P E N D E N C I E S - - - - -
+
+- - Private URLs - -
+GET       | api/v1/dependency/superior/{sub_user_id}        method index by subordinate id
+GET       | api/v1/dependency/subordinates/{sup_user_id}    method index by superior id
+*/
+
+// (URL)/api/v1/category/provider/(user_id)
+Route::get( 'v1/dependency/superior/{sub_user_id}', [DependencyController::class, 'indexBySubId'])
+     ->middleware('auth:sanctum');
+
+// (URL)/api/v1/category/provider/(user_id)
+Route::get( 'v1/dependency/subordinates/{sup_user_id}', [DependencyController::class, 'indexBySupId'])
+     ->middleware('auth:sanctum');
 /* - - - - - P R O D U C T S - - - - -
 
 - - Public URLs - -
