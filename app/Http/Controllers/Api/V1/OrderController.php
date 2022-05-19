@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
-use App\Models\Dependency;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Resources\V1\OrderResource;
 
@@ -17,15 +17,9 @@ class OrderController extends Controller
      */
     public function index()
     {
-        if(\Auth::user()->user_type == 2) {
-            $orders = Order::where('provider_id', \Auth::user()->id)
-                            ->orderBy('created_at','desc')
-                            ->get();
-        } else if(\Auth::user()->user_type == 1) {
-            $orders = Order::where('provider_id', \Auth::user()->id)
-                            ->orderBy('created_at','desc')
-                            ->get();
-        }
+        $orders = Order::where('provider_id', \Auth::user()->id)
+                        ->orderBy('id','desc')
+                        ->get();
 
         return OrderResource::collection($orders);
     }
