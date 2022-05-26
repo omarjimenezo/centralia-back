@@ -51,7 +51,7 @@ class DependencyController extends Controller
         $dependency->name        = $request->name;
         $dependency->save();
 
-        return response()->json(['message' => 'Success'], 205);
+        return response()->json(['message' => 'Success', 'code' => 0], 200);
     }
 
     /**
@@ -75,7 +75,7 @@ class DependencyController extends Controller
     public function update(Request $request, Dependency $dependency)
     {
         if ($dependency->user_id != \Auth::user()->id) {
-            return response()->json(['message' => 'Forbidden'], 403);
+            return response()->json(['message' => 'Forbidden', 'code' => 1], 403);
         }
 
         $dependency->user_id     = \Auth::user()->id;
@@ -83,7 +83,7 @@ class DependencyController extends Controller
         $dependency->name        = $request->name;
         $dependency->save();
 
-        return response()->json(['message' => 'Success'], 201);
+        return response()->json(['message' => 'Success', 'code' => 0], 200);
     }
 
     /**
@@ -95,10 +95,10 @@ class DependencyController extends Controller
     public function destroy(Dependency $dependency)
     {
         if ($dependency->user_id != \Auth::user()->id) {
-            return response()->json(['message' => 'Forbidden'], 403);
+            return response()->json(['message' => 'Forbidden', 'code' => 1], 403);
         }
 
         $dependency->delete();
-        return response()->json(['message' => 'Success'], 204);
+        return response()->json(['message' => 'Success', 'code' => 0], 200);
     }
 }

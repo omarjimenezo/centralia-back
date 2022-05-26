@@ -15,12 +15,13 @@ class LoginController extends Controller
             return response()->json([
                 'token'   => $request->user()->createToken($request->name)->plainTextToken,
                 'user_id'  => $request->user()->id,
-                'message' => 'Success'
+                'message' => 'Success',
+                'code' => 0
             ], 200);
         }
 
         return response()->json([
-            'message' => 'Unauthorized'
+            'message' => 'Unauthorized', 'code' => 1
         ], 401);
     }
 

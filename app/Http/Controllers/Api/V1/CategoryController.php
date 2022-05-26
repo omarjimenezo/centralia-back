@@ -37,7 +37,7 @@ class CategoryController extends Controller
         $category->name        = $request->name;
         $category->save();
 
-        return response()->json(['message' => 'Success'], 205);
+        return response()->json(['message' => 'Success', 'code' => 0], 200);
     }
 
     /**
@@ -61,7 +61,7 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         if ($category->user_id != \Auth::user()->id) {
-            return response()->json(['message' => 'Forbidden'], 403);
+            return response()->json(['message' => 'Forbidden', 'code' => 1], 403);
         }
 
         $category->user_id     = \Auth::user()->id;
@@ -69,7 +69,7 @@ class CategoryController extends Controller
         $category->name        = $request->name;
         $category->save();
 
-        return response()->json(['message' => 'Success'], 201);
+        return response()->json(['message' => 'Success', 'code' => 0], 200);
     }
 
     /**
@@ -81,10 +81,10 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         if ($category->user_id != \Auth::user()->id) {
-            return response()->json(['message' => 'Forbidden'], 403);
+            return response()->json(['message' => 'Forbidden', 'code' => 1], 403);
         }
 
         $category->delete();
-        return response()->json(['message' => 'Success'], 204);
+        return response()->json(['message' => 'Success', 'code' => 0], 200);
     }
 }

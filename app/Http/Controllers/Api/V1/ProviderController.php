@@ -29,5 +29,26 @@ class ProviderController extends Controller
 
         return OrderResource::collection($orders);
     }
+
+    public function updateOrderStatus(Request $request){
+        error_log('Request: '.$request);
+        $data = $request->json()->all();
+
+        if ($request->status && $request->order_id) {
+            $order = Order::find($request->order_id);
+            $order->status = $request->status;
+            error_log('Order Updated: '.$order);
+            $order->save();
+        //     $order = Order::where('id', $data['order_id'])->get();
+        //     error_log('New status: '. $data['status']);
+        //     $order->status = $data['status'];
+        //     error_log('Order Updated: '.$order);
+        //     $order->save(); 
+
+            return response()->json(['message' => 'Success', 'code' => 0], 200);               
+        } else {
+            return response()->json(['message' => 'Missing required fields', 'code' => 1], 400);
+        }
+    }
 }
 

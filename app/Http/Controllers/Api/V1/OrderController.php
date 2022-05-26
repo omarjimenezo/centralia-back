@@ -41,15 +41,15 @@ class OrderController extends Controller
                 $order->provider_id = $data['provider_id'];
                 $order->description = json_encode($data['description']);
                 $order->amount = $data['amount'];
-                $order->status  = 'Pending';
+                $order->status = 1;
                 $order->save(); 
 
-                return response()->json(['message' => 'Success'], 200);     
+                return response()->json(['message' => 'Success', 'code' => 0], 200);     
             } else {
-                return response()->json(['message' => 'Missing required field'], 400);
+                return response()->json(['message' => 'Missing required field', 'code' => 1], 400);
             }            
         } else {
-            return response()->json(['message' => 'Bad request'], 400);
+            return response()->json(['message' => 'Bad request', 'code' => 1], 400);
         }
     }
 
@@ -74,7 +74,7 @@ class OrderController extends Controller
     public function update(Request $request, Order $order)
     {
         if ($order->user_id != \Auth::user()->id) {
-            return response()->json(['message' => 'Forbidden'], 403);
+            return response()->json(['message' => 'Forbidden', 'code' => 1], 403);
         }
 
         $data = $request->json()->all();
@@ -92,12 +92,12 @@ class OrderController extends Controller
 
                 $order->save(); 
 
-                return response()->json(['message' => 'Success'], 205);     
+                return response()->json(['message' => 'Success', 'code' => 0], 200);     
             } else {
-                return response()->json(['message' => 'Missing required field'], 400);
+                return response()->json(['message' => 'Missing required field', 'code' => 1], 400);
             }            
         } else {
-            return response()->json(['message' => 'Bad request'], 400);
+            return response()->json(['message' => 'Bad request', 'code' => 1], 400);
         }
     }
 
@@ -110,10 +110,10 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
         if ($order->user_id != \Auth::user()->id) {
-            return response()->json(['message' => 'Forbidden'], 403);
+            return response()->json(['message' => 'Forbidden', 'code' => 1], 403);
         }
 
         $order->delete();
-        return response()->json(['message' => 'Success'], 204);
+        return response()->json(['message' => 'Success', 'code' => 0], 200);
     }
 }

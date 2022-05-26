@@ -128,3 +128,7 @@ Route::get( 'v1/userinfo', [UserController::class, 'userInfo'])
 // (URL)/api/v1/orders
 Route::get('v1/provider/orders', [ProviderController::class, 'orderList'])
      ->middleware('auth:sanctum');
+
+// (URL)/api/v1/order/status
+Route::put('v1/provider/orders/status', [ProviderController::class, 'updateOrderStatus'])
+       ->middleware('auth:sanctum');

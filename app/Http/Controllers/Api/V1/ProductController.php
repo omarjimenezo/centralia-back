@@ -42,7 +42,7 @@ class ProductController extends Controller
         $product->category    = $request->category;
         $product->save();
 
-        return response()->json(['message' => 'Success'], 205);
+        return response()->json(['message' => 'Success', 'code' => 0], 200);
     }
 
     /**
@@ -66,7 +66,7 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         if ($product->user_id != \Auth::user()->id) {
-            return response()->json(['message' => 'Forbidden'], 403);
+            return response()->json(['message' => 'Forbidden', 'code' => 1], 403);
         }
 
         $product->user_id     = \Auth::user()->id;
@@ -79,7 +79,7 @@ class ProductController extends Controller
         $product->category    = $request->category;
         $product->save();
 
-        return response()->json(['message' => 'Success'], 201);
+        return response()->json(['message' => 'Success', 'code' => 0], 200);
     }
 
     /**
@@ -91,10 +91,10 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         if ($product->user_id != \Auth::user()->id) {
-            return response()->json(['message' => 'Forbidden'], 403);
+            return response()->json(['message' => 'Forbidden', 'code' => 1], 403);
         }
 
         $product->delete();
-        return response()->json(['message' => 'Success'], 204);
+        return response()->json(['message' => 'Success', 'code' => 0], 200);
     }
 }

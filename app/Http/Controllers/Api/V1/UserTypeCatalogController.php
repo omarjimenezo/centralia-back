@@ -21,7 +21,7 @@ class UserTypeCatalogController extends Controller
         $user_type->description = $request->description;
         $user_type->save();
 
-        return response()->json(['message' => 'Success'], 200);
+        return response()->json(['message' => 'Success', 'code' => 0], 200);
     }
 
     /**
