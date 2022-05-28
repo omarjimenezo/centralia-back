@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\CategoryController as CategoryController;
 use App\Http\Controllers\Api\V1\DependencyController as DependencyController;
+use App\Http\Controllers\Api\V1\OrderStatusCatalogController as OrderStatusCatalogController;
 use App\Http\Controllers\Api\V1\ProductController as ProductController;
 use App\Http\Controllers\Api\V1\OrderController as OrderController;
 use App\Http\Controllers\Api\V1\UserController as UserController;
@@ -52,6 +53,17 @@ Route::get( 'v1/dependency/superior/{sub_user_id}', [DependencyController::class
 // (URL)/api/v1/category/provider/(user_id)
 Route::get( 'v1/dependency/subordinates/{sup_user_id}', [DependencyController::class, 'indexBySupId'])
      ->middleware('auth:sanctum');
+
+/* - - - - - D A T A - - - - -
+
+- - Private URLs - -
+GET       | api/v1/dependency/superior/{sub_user_id}        method index by subordinate id
+*/
+
+// (URL)/api/v1/status/catalog
+Route::get( 'v1/data/status/catalog', [OrderStatusCatalogController::class, 'getOrderStatusCatalog'])
+     ->middleware('auth:sanctum');
+
 /* - - - - - P R O D U C T S - - - - -
 
 - - Public URLs - -
