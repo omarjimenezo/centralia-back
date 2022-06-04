@@ -22,7 +22,7 @@ class LoginController extends Controller
 
         return response()->json([
             'message' => 'Unauthorized', 'code' => 1
-        ], 401);
+        ], 200);
     }
 
     public function validateLogin($request) {
