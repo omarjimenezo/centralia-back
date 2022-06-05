@@ -19,6 +19,7 @@ class OrderResource extends JsonResource
             'user_id'     => $this->user->id,
             'client_name' => $this->user->name.' '.$this->user->lastname,
             'provider_id' => $this->provider->id,
+            'provider_name' => $this->provider->name,
             'description' => json_decode($this->description),
             'amount'      => $this->amount,
             'status'      => $this->status,
