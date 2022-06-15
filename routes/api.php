@@ -100,8 +100,11 @@ Route::delete( 'v1/product/{product}', [ProductController::class, 'destroy'])
 - - Public URLs - -
 GET       | api/v1/orders             method index
 GET       | api/v1/order/{order}      method show
+GET       | api/v1/provider/orders    method providerOrderList
+GET       | api/v1/business/orders    method businessOrderList
 POST      | api/v1/order              method store
 PUT       | api/v1/order/{order}      method update
+PUT       | api/v1/order/status      method updateOrderStatus
 DELETE    | api/v1/order/{order}      method destroy
 */
 
@@ -121,6 +124,18 @@ Route::post('v1/order', [OrderController::class, 'store'])
 Route::put('v1/order/{order}', [OrderController::class, 'update'])
      ->middleware('auth:sanctum');
 
+// (URL)/api/v1/provider/orders
+Route::get('v1/provider/orders', [OrderController::class, 'providerOrderList'])
+     ->middleware('auth:sanctum');
+
+// (URL)/api/v1/business/orders
+Route::get('v1/business/orders', [OrderController::class, 'businessOrderList'])
+     ->middleware('auth:sanctum');
+
+// (URL)/api/v1/order/status
+Route::put('v1/provider/orders/status', [OrderController::class, 'updateOrderStatus'])
+       ->middleware('auth:sanctum');
+
 // (URL)/api/v1/order/(order)
 Route::delete('v1/order/{order}', [OrderController::class, 'destroy'])
      ->middleware('auth:sanctum');
@@ -134,13 +149,3 @@ Route::get('v1/user/{user}', [UserController::class, 'show']);
 Route::get( 'v1/userinfo', [UserController::class, 'userInfo'])
      ->middleware('auth:sanctum');
 
-
-
-
-// (URL)/api/v1/orders
-Route::get('v1/provider/orders', [ProviderController::class, 'orderList'])
-     ->middleware('auth:sanctum');
-
-// (URL)/api/v1/order/status
-Route::put('v1/provider/orders/status', [ProviderController::class, 'updateOrderStatus'])
-       ->middleware('auth:sanctum');
